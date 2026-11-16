@@ -1,0 +1,112 @@
+clear
+lsb_release -a
+sudo apt update
+sudo apt install -y git
+lsb_release -a
+sudo apt update
+sudo apt install -y git
+git --version
+git config --global user.name KumudRathi
+git config --global user.email kumudrathi18@gmail.com
+git config --global init.defaultBranch main
+git config --list
+sudo apt install -y fontconfig openjdk-21-jre curl
+java -version
+sudo mkdir -p /etc/apt/keyrings
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt update
+sudo apt install -y jenkins
+sudo systemctl enable --now jenkins
+sudo systemctl status jenkins
+sudo ss -ltnp | grep :8080
+sudo systemctl restart jenkins
+sudo systemctl status jenkins
+mkdir ~/devops-lab1 && cd ~/devops-lab1
+git init
+git status
+nano README.md
+git status
+git add README.md
+git status
+git log
+git commit -m "Initial Commit"
+git log
+nano notes.txt
+git add notes.txt
+git commit -m "Second Commit"
+git log --oneline
+git checkout -b feature-branch
+nano feature.txt
+git add feature.txt
+git commit -m "Added feature file"
+git branch
+git checkout main
+git merge feature-branch
+git log --oneline --graph --all
+git remote add origin https://github.com/KumudRathi/devops-lab1
+git remote -v
+git push -u origin main
+git push origin feature-branch
+curl -I https://github.com
+clear
+cd ~/devops-lab1
+cat > Jenkinsfile <<'EOF'
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building application...'
+                sh 'echo Build completed successfully'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing application...'
+                sh 'test -f README.md'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                sh 'mkdir -p deploy'
+                sh 'cp README.md deploy/'
+            }
+        }
+    }
+}
+EOF
+
+cat Jenkinsfile
+git add Jenkinsfile
+git commit -m "Added Jenkinsfile with Build Test Deploy stages"
+git push origin main
+sudo systemctl start jenkins
+cd ~/devops-lab1
+nano Jenkinsfile
+cat Jenkinsfile
+git status
+git add Jenkinsfile
+git commit -m "Added post-build actions and deployment steps for Q5"
+git push origin main
+cat jenkins
+cat Jenkinsfile
+cd ~/devops-lab1
+git push origin main
+echo "Testing automated deployment trigger" >> README.md
+git add README.md
+git commit -m "Trigger automated build for Q5 demo"
+git push origin main
+find / -path "*/workspace/devops-lab1-pipeline/deploy*" 2>/dev/null
+find / -path "*/workspace/devops-lab1-pipeline/deploy*" 2>/dev
+find / -path "*/workspace/devops-lab1-pipeline/deploy*" 2>
+find / -path "*/workspace/devops-lab1-pipeline/deploy*" 2>/dev/null
+ls /var/lib/jenkins/workspace/devops-lab1-pipeline/deploy
+cat/var/lib/jenkins/workspace/devops-lab1-pipeline/deploy.README.md
+cd ~/devops-lab1
+mkdir -p logs
+history -a

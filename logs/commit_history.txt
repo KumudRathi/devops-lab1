@@ -1,0 +1,6 @@
+* 98dc8c0 Trigger automated build for Q5 demo
+* 0cb7a3f Added post-build actions and deployment steps for Q5
+* cdef6eb Added Jenkinsfile with Build Test Deploy stages
+* 5fcd8ce Added feature file
+* 6c86ce3 Second Commit
+* fa489df Initial Commit

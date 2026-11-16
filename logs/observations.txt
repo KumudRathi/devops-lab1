@@ -1,0 +1,56 @@
+DevOps Lab 1 - Observations
+
+Q1: Installed Git and Jenkins on Ubuntu 24.04 LTS (running via WSL2 on Windows).
+    Verified Git installation using git --version and configured global Git
+    settings (user.name, user.email, default branch). Installed Java (OpenJDK 21)
+    as a prerequisite for Jenkins. Added the Jenkins repository and GPG key,
+    installed Jenkins via apt, and enabled it as a systemd service. Verified
+    Jenkins was running using systemctl status jenkins and completed the setup
+    wizard through the browser at localhost:8080.
+
+Q2: Initialized a local Git repository using git init. Created files (README.md,
+    notes.txt), staged and committed changes using git add and git commit.
+    Created a new branch (feature-branch), made changes, and merged it back into
+    the main branch using git merge. Created a GitHub repository and pushed the
+    local repository to GitHub using git push, authenticated with a Personal
+    Access Token since GitHub no longer supports password authentication.
+
+Q3: Created a Freestyle Jenkins job and configured it to pull source code from
+    the GitHub repository using the Git plugin. Faced an issue where Jenkins was
+    initially running on Windows, causing the "Execute shell" build step to fail
+    with a "cannot run program sh" error, since Windows does not have a Unix
+    shell. Resolved this by switching to the Jenkins instance running on Ubuntu
+    (WSL2), after which the Execute shell step worked correctly and the build
+    completed with status SUCCESS, confirming Jenkins could successfully pull
+    code from GitHub and trigger an automated build.
+
+Q4: Created a Jenkinsfile in the project root defining a declarative pipeline
+    with three stages: Build, Test, and Deploy. The Build stage echoed a build
+    message, the Test stage verified the presence of README.md using test -f,
+    and the Deploy stage created a deploy directory and copied README.md into
+    it. Created a new Pipeline job in Jenkins configured with "Pipeline script
+    from SCM" pointing to the GitHub repository and the Jenkinsfile. All three
+    stages executed successfully, visible in the Jenkins Stage View with green
+    checkmarks for Checkout SCM, Build, Test, and Deploy.
+
+Q5: Enhanced the Jenkinsfile by adding a Poll SCM build trigger (schedule:
+    H/2 * * * *) to automatically check GitHub for changes every 2 minutes, and
+    added post-build actions (success, failure, and always blocks) including
+    archiving deployment artifacts. Verified automation by pushing a small code
+    change to GitHub and confirming that Jenkins automatically triggered a new
+    build without manual intervention, shown as "Started by an SCM change" in
+    the build details. Verified the deployed file existed in the Jenkins
+    workspace directory (/var/lib/jenkins/workspace/devops-lab1-pipeline/deploy/)
+    confirming successful automated deployment.
+
+Q6: Collected command history, commit history, and screenshots from all
+    experiments (Q1-Q5) into a logs/ folder within the GitHub repository for
+    documentation and evidence purposes.
+
+Tools used: Ubuntu 24.04 LTS (WSL2), Git, GitHub, Jenkins (Freestyle + Pipeline
+jobs), OpenJDK 21.
+
+Key learning: Understood the difference between Freestyle and Pipeline jobs in
+Jenkins, how Jenkinsfiles define build stages as code, and how SCM polling
+enables continuous integration by automatically triggering builds on code
+changes.
